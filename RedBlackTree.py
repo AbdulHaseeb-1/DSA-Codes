@@ -1,4 +1,3 @@
-from termcolor import colored
 class Node:
     def __init__(self,data:int):
         self.data = data
@@ -15,15 +14,43 @@ class RedBlackTree:
         self.root = self.nullNode
             
         
-    def rotate_left(self, node):
-            pass
+    def rotateLeft(self, node):
+        y = node.right
+        node.right = y.left
+        if y.left != self.nullNode:
+            y.left.parent = node
+
+        y.parent = node.parent
+        if node.parent == None:
+            self.root = y
+        elif node == node.parent.left:
+            node.parent.left = y
+        else:
+            node.parent.right = y
+        y.left = node
+        node.parent = y
+
+
+            
+
         
-        
-    def rotate_right(self, node):
-            pass
-        
-        
-        
+    def rotateRight(self, node):
+        y = node.left
+        node.left = y.right
+        if y.right != self.nullNodeL:
+            y.right.parent = node
+
+        y.parent = node.parent
+        if node.parent == None:
+            self.root = y
+        elif node == node.parent.right:
+            node.parent.right = y
+        else:
+            node.parent.left = y
+        y.right = node
+        node.parent = y
+                
+         
     def fix_insert(self,node):  
         while node.parent.color == 1:
             if node.parent.parent.right == node.parent:
@@ -73,7 +100,7 @@ class RedBlackTree:
                 x = x.left
             
         self.node.parent = y
-        if self.node.parent == None:
+        if y is None:
             self.root = self.node
         elif self.node.data > y.data:
             y.right = self.node
@@ -83,18 +110,24 @@ class RedBlackTree:
         if self.node.parent is None:
             self.node.color = 0
             return 
-        if self.node.parent.parent is None:
+        elif self.node.parent.parent is None:
             return 
         
         self.fix_insert(self.node)
-            
+      
+    def inOrder(self):
+        self.in_order_helper(self.root)      
+    
+    def in_order_helper(self, node):
+        if node != self.nullNode:
+            self.in_order_helper(node.left)
+            print(node.data  ,end=" " )
+            self.in_order_helper(node.right)
+
         
 if __name__ == "__main__":
     rbt = RedBlackTree()
-    rbt.insertNode(19)
-    rbt.insertNode(12)
-    rbt.insertNode(20)
-    rbt.insertNode(10)
-    rbt.insertNode(15)
-    rbt.insertNode(1)
+    for i in range(1000):
+        rbt.insertNode(i)
+    rbt.inOrder()
   
