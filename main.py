@@ -7,15 +7,13 @@ class Node:
         self.parent = None
         self.color = 1
     
-    
 
 class RedBlackTree:
     def __init__(self):
         self.nullNode = Node(0)
         self.nullNode.color = 0
         self.root = self.nullNode
-        
-        
+            
         
     def rotate_left(self, node):
             pass
@@ -57,8 +55,7 @@ class RedBlackTree:
                     node.parent.parent.color = 1           
                     self.rotateRight(node.parent.parent)       
         self.root.color = 0
-            
-        
+                    
     
     def insertNode(self,data):
         self.node = Node(data)
@@ -92,13 +89,6 @@ class RedBlackTree:
         self.fix_insert(self.node)
             
         
-            
-            
-            
-                    
-    
-    
-
 if __name__ == "__main__":
     rbt = RedBlackTree()
     rbt.insertNode(19)
